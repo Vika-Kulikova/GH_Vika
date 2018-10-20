@@ -1,53 +1,35 @@
 (function () {
+    function timeSwitch(num) {
+        let string = `switch(n) {`;
+        for (let i = 0; i < num - 1; i++) {
+            string += `case ${i}:;break;`;
+        }
+        string += `default: ;}`;
+        return string
+    }
 
-  function timeSwitch(num) {
-    switch (num) {
-      case 0:
-        break;
-      case 1:
-        break;
-      case 2:
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
-      case 5:
-        break;
-      default:
-        console.log('switch');
+    function timeIf(num) {
+        let string = `if (n===0) {}`;
+        for (let i = 1; i < num - 1; i++) {
+            string += `else if(n==${i}){}`;
+        }
+        string += `else {}`;
+        return string
     }
-  }
 
-  function timeIf(num) {
-    if (num == 0) {
+    function calculate(funct, num, log) {
+        var scriptFunc = funct(num);
+        console.time(log);
+        for (var n = 0; n < num; n++) {
+            eval(scriptFunc)
+        }
+        console.timeEnd(log)
     }
-    else if (num == 1) {
-    }
-    else if (num == 2) {
-    }
-    else if (num == 3) {
-    }
-    else if (num == 4) {
-    }
-    else if (num == 5) {
-    }
-    else {
-      console.log('if')
-    }
-  }
 
-  function measure(fun, log) {
-    console.time(log);
-    for (let i = 0; i < 10000; i++) {
-      for (let j = 0; j < 7; j++) {
-        fun(j);
-      }
+    function callFunc(numBlock) {
+        calculate(timeSwitch, numBlock, 'Time switch: ');
+        calculate(timeIf, numBlock, 'if else statement: ');
     }
-    console.timeEnd(log);
-  }
 
-  measure(timeSwitch, 'timer switch: ');
-  measure(timeIf, 'timer if: ');
-
+    callFunc(300);
 })();
